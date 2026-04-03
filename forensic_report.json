@@ -1,0 +1,345 @@
+{
+  "report_metadata": {
+    "generated_at": "2026-03-09T16:52:15.100473Z",
+    "system": "Blockchain Security Incident Logging System v1.0",
+    "purpose": "Digital Forensics & Incident Response (DFIR)"
+  },
+  "chain_validation": {
+    "valid": true,
+    "chain_length": 5,
+    "total_incidents": 8,
+    "issues": [],
+    "validated_at": "2026-03-09T16:52:15.101569Z"
+  },
+  "chain_summary": {
+    "total_blocks": 5,
+    "total_incidents": 8,
+    "pending_incidents": 0,
+    "severity_breakdown": {
+      "LOW": 1,
+      "MEDIUM": 0,
+      "HIGH": 3,
+      "CRITICAL": 4
+    },
+    "type_breakdown": {
+      "NETWORK_INTRUSION": 1,
+      "UNAUTHORIZED_ACCESS": 1,
+      "MALWARE_DETECTED": 1,
+      "DATA_BREACH": 1,
+      "PRIVILEGE_ESCALATION": 1,
+      "INSIDER_THREAT": 1,
+      "DDoS_ATTACK": 1,
+      "ZERO_DAY_EXPLOIT": 1
+    },
+    "genesis_hash": "9b65f4cdce0b983195eaeb5a48feafebb396a57a3eccf1535ef15de2a1188145",
+    "latest_hash": "00099f8e98033369e2cd62dc041d841739de8aab577802dd05fe5c9a380cdb19"
+  },
+  "blockchain": [
+    {
+      "index": 0,
+      "timestamp": "2026-03-09T16:52:13.924337Z",
+      "hash": "9b65f4cdce0b983195eaeb5a48feafebb396a57a3eccf1535ef15de2a1188145",
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "merkle_root": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
+      "miner_id": "GENESIS",
+      "nonce": 0,
+      "incident_count": 0,
+      "incidents": []
+    },
+    {
+      "index": 1,
+      "timestamp": "2026-03-09T16:52:14.126589Z",
+      "hash": "000bd748ddf580fe4583631f824ca66711ff336dbc41ce001d2dc767a669ac17",
+      "previous_hash": "9b65f4cdce0b983195eaeb5a48feafebb396a57a3eccf1535ef15de2a1188145",
+      "merkle_root": "e15f4550fe97c2af516e818e0a51d39bef5ffed4b903a4993915ae3d86e8d672",
+      "miner_id": "SYSTEM",
+      "nonce": 53,
+      "incident_count": 3,
+      "incidents": [
+        {
+          "record_id": "7ce5fd20-715d-4bd4-94be-be6d289cc8c7",
+          "timestamp": "2026-03-09T16:52:13.924336Z",
+          "incident_type": "NETWORK_INTRUSION",
+          "severity": "LOW",
+          "source_ip": "172.16.0.50",
+          "target_system": "FIREWALL-01",
+          "description": "Port scan detected from external IP. 65535 ports probed in 4 minutes.",
+          "evidence": {
+            "type": "NETWORK_LOG",
+            "content": "2024-01-15T08:00:00Z SRC=172.16.0.50 DST=10.0.0.1 PROTO=TCP FLAGS=SYN",
+            "tool": "Snort IDS",
+            "pcap_hash": "a3f1b2c4d5e6f7a8b9c0d1e2f3a4b5c6"
+          },
+          "evidence_hash": "06d831662ca977a112b396cb062ee1f6fc5a1afd7ac878861c340fd97379c97b",
+          "reporter_id": "IDS-AGENT-01",
+          "affected_assets": [
+            "FIREWALL-01"
+          ],
+          "status": "OPEN",
+          "chain_of_custody": [
+            {
+              "action": "CREATED",
+              "actor": "IDS-AGENT-01",
+              "timestamp": "2026-03-09T16:52:13.924336Z"
+            }
+          ]
+        },
+        {
+          "record_id": "0be27abf-72f0-421d-b6e6-b7af7fb67853",
+          "timestamp": "2026-03-09T16:52:14.025697Z",
+          "incident_type": "UNAUTHORIZED_ACCESS",
+          "severity": "HIGH",
+          "source_ip": "172.16.0.50",
+          "target_system": "AUTH-SERVER-01",
+          "description": "Brute force attack: 8,432 failed login attempts in 15 minutes. Admin account locked.",
+          "evidence": {
+            "type": "AUTH_LOG",
+            "content": "Failed password for admin from 172.16.0.50 port 22 ssh2 [x8432]",
+            "tool": "Fail2Ban + SIEM",
+            "log_hash": "b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9"
+          },
+          "evidence_hash": "b9badb2a8e0859521f0c3a3dc330c6ad7c9b4852f15d79c312f48ef74900fc55",
+          "reporter_id": "SIEM-AGENT-02",
+          "affected_assets": [
+            "AUTH-SERVER-01",
+            "LDAP-01"
+          ],
+          "status": "OPEN",
+          "chain_of_custody": [
+            {
+              "action": "CREATED",
+              "actor": "SIEM-AGENT-02",
+              "timestamp": "2026-03-09T16:52:14.025697Z"
+            }
+          ]
+        },
+        {
+          "record_id": "53b77bb3-cdb5-4e53-8db0-ffbec7c72782",
+          "timestamp": "2026-03-09T16:52:14.126588Z",
+          "incident_type": "MALWARE_DETECTED",
+          "severity": "CRITICAL",
+          "source_ip": "10.0.0.200",
+          "target_system": "WORKSTATION-DEV-07",
+          "description": "Ransomware strain 'LockBit 3.0' detected. File encryption in progress. C2 beacon active.",
+          "evidence": {
+            "type": "MALWARE_SAMPLE",
+            "content": "PE32+ executable, SHA256: e3b0c44298fc1c149afbf4c8996fb924",
+            "tool": "CrowdStrike Falcon",
+            "yara_rule": "LockBit_3_0",
+            "c2_server": "10.0.0.200",
+            "sandbox_report": "https://sandbox.internal/report/abc123"
+          },
+          "evidence_hash": "9a99b3bc23e9c9df917f36e8a6956da8bbd9fe783edaf834355294a135bf10fe",
+          "reporter_id": "EDR-AGENT-03",
+          "affected_assets": [
+            "WORKSTATION-DEV-07",
+            "FILE-SERVER-02",
+            "BACKUP-01"
+          ],
+          "status": "OPEN",
+          "chain_of_custody": [
+            {
+              "action": "CREATED",
+              "actor": "EDR-AGENT-03",
+              "timestamp": "2026-03-09T16:52:14.126588Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "timestamp": "2026-03-09T16:52:14.282475Z",
+      "hash": "000309ae3cdab1f836291d33fb538453155d042478d91dfd49c706d6b31e2659",
+      "previous_hash": "000bd748ddf580fe4583631f824ca66711ff336dbc41ce001d2dc767a669ac17",
+      "merkle_root": "cc7e98c1b8d9f98cd334b1db3243531d26cc6a6143440fce8fa36949ef48a0e9",
+      "miner_id": "SYSTEM",
+      "nonce": 7013,
+      "incident_count": 1,
+      "incidents": [
+        {
+          "record_id": "ffe222d8-37da-43ce-9582-d34e3b3a7d73",
+          "timestamp": "2026-03-09T16:52:14.281478Z",
+          "incident_type": "DATA_BREACH",
+          "severity": "CRITICAL",
+          "source_ip": "192.168.1.100",
+          "target_system": "DATABASE-PROD-01",
+          "description": "Exfiltration attempt: 47GB of PII data transferred to external C2. Blocked by DLP.",
+          "evidence": {
+            "type": "DLP_ALERT",
+            "content": "OUTBOUND: 47.3GB to 192.168.1.100:443 \u2014 PII classification: SSN, CC, DOB",
+            "tool": "Symantec DLP",
+            "data_categories": [
+              "PII",
+              "FINANCIAL",
+              "MEDICAL"
+            ],
+            "records_at_risk": 250000
+          },
+          "evidence_hash": "66846b9a635b06083aab00f1bc1b36ba507d178a6a6ad06011b0264500cd4b82",
+          "reporter_id": "DLP-AGENT-04",
+          "affected_assets": [
+            "DATABASE-PROD-01",
+            "USER-DATA-STORE",
+            "CUSTOMER-DB"
+          ],
+          "status": "OPEN",
+          "chain_of_custody": [
+            {
+              "action": "CREATED",
+              "actor": "DLP-AGENT-04",
+              "timestamp": "2026-03-09T16:52:14.281478Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "timestamp": "2026-03-09T16:52:14.541563Z",
+      "hash": "000cb14fc4f8db2d05f2ee4319f939f66dff908687f2b4c2aa80576c8111f086",
+      "previous_hash": "000309ae3cdab1f836291d33fb538453155d042478d91dfd49c706d6b31e2659",
+      "merkle_root": "0c7440fe9790a4ba2e8722ac3aab97bb79f06f4afa71ef0ab29a658a211f7f1c",
+      "miner_id": "SYSTEM",
+      "nonce": 2752,
+      "incident_count": 1,
+      "incidents": [
+        {
+          "record_id": "94e985c5-46bb-4b22-a3ee-f92806e806f1",
+          "timestamp": "2026-03-09T16:52:14.541563Z",
+          "incident_type": "PRIVILEGE_ESCALATION",
+          "severity": "CRITICAL",
+          "source_ip": "10.10.10.15",
+          "target_system": "DOMAIN-CONTROLLER-01",
+          "description": "Pass-the-Hash attack. NTLM hash captured and used to authenticate as Domain Admin.",
+          "evidence": {
+            "type": "WINDOWS_EVENT_LOG",
+            "content": "EventID 4624 LogonType=3 AccountName=svc_backup Domain=CORP",
+            "tool": "Microsoft Sentinel",
+            "technique": "T1550.002",
+            "mitre_tactic": "Lateral Movement"
+          },
+          "evidence_hash": "970bf1bd7278c2a4fd36c5035b172a5690f2dc65c327ac2d9b17ae66cdc144b2",
+          "reporter_id": "SENTINEL-AGENT-05",
+          "affected_assets": [
+            "DOMAIN-CONTROLLER-01",
+            "ALL-AD-OBJECTS"
+          ],
+          "status": "OPEN",
+          "chain_of_custody": [
+            {
+              "action": "CREATED",
+              "actor": "SENTINEL-AGENT-05",
+              "timestamp": "2026-03-09T16:52:14.541563Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "timestamp": "2026-03-09T16:52:14.887325Z",
+      "hash": "00099f8e98033369e2cd62dc041d841739de8aab577802dd05fe5c9a380cdb19",
+      "previous_hash": "000cb14fc4f8db2d05f2ee4319f939f66dff908687f2b4c2aa80576c8111f086",
+      "merkle_root": "bea1fcff912f42a6ee6a0b30528b0aae6e8a759b6579f07e0b99c5541047f9cc",
+      "miner_id": "SYSTEM",
+      "nonce": 2248,
+      "incident_count": 3,
+      "incidents": [
+        {
+          "record_id": "d5d32795-963d-443f-9d01-d9686c009f08",
+          "timestamp": "2026-03-09T16:52:14.684003Z",
+          "incident_type": "INSIDER_THREAT",
+          "severity": "HIGH",
+          "source_ip": "192.168.50.30",
+          "target_system": "HR-SYSTEM-01",
+          "description": "Employee accessed 1,200 HR records outside business hours. USB transfer detected.",
+          "evidence": {
+            "type": "UEBA_ALERT",
+            "content": "User: john.smith@corp.com \u2014 Anomaly score: 98.7 \u2014 Records accessed: 1200",
+            "tool": "Splunk UBA",
+            "user_account": "john.smith@corp.com",
+            "usb_device_id": "VID_0951&PID_1666",
+            "files_copied": 1200
+          },
+          "evidence_hash": "460275d8ca10d37aea06efc373bc2392db65371384d355524fc83761d9eea4cc",
+          "reporter_id": "UEBA-AGENT-06",
+          "affected_assets": [
+            "HR-SYSTEM-01",
+            "EMPLOYEE-RECORDS-DB"
+          ],
+          "status": "OPEN",
+          "chain_of_custody": [
+            {
+              "action": "CREATED",
+              "actor": "UEBA-AGENT-06",
+              "timestamp": "2026-03-09T16:52:14.684003Z"
+            }
+          ]
+        },
+        {
+          "record_id": "6be60c7c-63b9-457b-85cb-f618ad7945a6",
+          "timestamp": "2026-03-09T16:52:14.784941Z",
+          "incident_type": "DDoS_ATTACK",
+          "severity": "HIGH",
+          "source_ip": "198.51.100.0",
+          "target_system": "WEB-APP-01",
+          "description": "HTTP flood attack: 2.4M requests/second. CDN mitigation activated.",
+          "evidence": {
+            "type": "CDN_LOG",
+            "content": "Cloudflare: 2,400,000 req/s from 15,000 unique IPs \u2014 Botnet confirmed",
+            "tool": "Cloudflare WAF",
+            "peak_rps": 2400000,
+            "unique_sources": 15000,
+            "attack_vector": "HTTP_FLOOD"
+          },
+          "evidence_hash": "bc22b726b2b20c386f4e72a6217b60815b93ce1def56153dabe49f5ae7ef5529",
+          "reporter_id": "WAF-AGENT-07",
+          "affected_assets": [
+            "WEB-APP-01",
+            "LOAD-BALANCER-01"
+          ],
+          "status": "OPEN",
+          "chain_of_custody": [
+            {
+              "action": "CREATED",
+              "actor": "WAF-AGENT-07",
+              "timestamp": "2026-03-09T16:52:14.784941Z"
+            }
+          ]
+        },
+        {
+          "record_id": "23b28782-c856-46b8-a36a-63b22e14682e",
+          "timestamp": "2026-03-09T16:52:14.886316Z",
+          "incident_type": "ZERO_DAY_EXPLOIT",
+          "severity": "CRITICAL",
+          "source_ip": "203.0.113.42",
+          "target_system": "VPN-GATEWAY-01",
+          "description": "CVE-2024-XXXX: Unauthenticated RCE in VPN gateway. PoC exploit code deployed.",
+          "evidence": {
+            "type": "EXPLOIT_ARTIFACT",
+            "content": "HTTP POST /api/v1/auth \u2014 Buffer overflow payload (712 bytes)",
+            "tool": "Palo Alto Cortex XDR",
+            "cve": "CVE-2024-XXXX",
+            "cvss_score": 10.0,
+            "exploit_hash": "f1e2d3c4b5a6978869504132"
+          },
+          "evidence_hash": "3f3b0aca5029ee007cc300a4b5c6e36a944c6a8fa909dfd1dabf21cc1890924f",
+          "reporter_id": "XDR-AGENT-08",
+          "affected_assets": [
+            "VPN-GATEWAY-01",
+            "REMOTE-ACCESS-INFRA"
+          ],
+          "status": "OPEN",
+          "chain_of_custody": [
+            {
+              "action": "CREATED",
+              "actor": "XDR-AGENT-08",
+              "timestamp": "2026-03-09T16:52:14.886316Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
